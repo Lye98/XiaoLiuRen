@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>九宫全盘·事件详批</title>
+    <title>九宮全盤·事件詳批</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
@@ -26,7 +26,7 @@
             color: #d1d5db;
         }
 
-        /* 隐藏滚动条但保留功能 */
+        /* 隱藏滾動條但保留功能 */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -39,56 +39,56 @@
 <body class="p-3 sm:p-6 text-slate-900 flex flex-col items-center">
 
     <div class="w-full max-w-md bg-[#FDFBF7] border-[4px] border-slate-800 shadow-2xl p-4 rounded-sm relative">
-        <!-- 装饰顶条 -->
+        <!-- 裝飾頂條 -->
         <div class="absolute top-0 left-0 w-full h-2 bg-[#8C2721]"></div>
         
         <h1 class="text-center text-3xl font-black text-[#8C2721] mt-2 mb-4 tracking-[0.2em] border-b-2 border-[#8C2721]/10 pb-2">
-            九宫全盘·事件详批
+            九宮全盤·事件詳批
         </h1>
 
-        <!-- 起课事件 -->
+        <!-- 起課事件 -->
         <div class="mb-4">
-            <label class="text-[10px] font-bold text-stone-400 ml-1 mb-1 block uppercase tracking-widest">起课事件 (如：问财运、求职、失物)</label>
+            <label class="text-[10px] font-bold text-stone-400 ml-1 mb-1 block uppercase tracking-widest">起課事件 (如：問財運、求職、失物)</label>
             <input id="eventInput" type="text" 
                 class="w-full px-3 py-2 border-2 border-slate-800 outline-none font-bold text-[#8C2721] bg-white shadow-inner" 
-                placeholder="请输入您要咨询的具体事项...">
+                placeholder="請輸入您要諮詢的具體事項...">
         </div>
 
-        <!-- 模式切换 -->
+        <!-- 模式切換 -->
         <div class="mb-6 bg-white border border-slate-800 rounded-sm overflow-hidden shadow-sm">
             <div class="flex border-b border-slate-800" id="modeTabs">
-                <button onclick="setMode('date')" data-mode="date" class="mode-btn flex-1 py-3 text-xs font-black bg-[#8C2721] text-white">自动日期</button>
-                <button onclick="setMode('number')" data-mode="number" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400">数理模式</button>
-                <button onclick="setMode('text')" data-mode="text" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400">文字感应</button>
+                <button onclick="setMode('date')" data-mode="date" class="mode-btn flex-1 py-3 text-xs font-black bg-[#8C2721] text-white">自動日期</button>
+                <button onclick="setMode('number')" data-mode="number" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400">數理模式</button>
+                <button onclick="setMode('text')" data-mode="text" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400">文字感應</button>
             </div>
             
             <div class="p-4" id="inputArea">
-                <!-- 动态内容加载 -->
-                <div id="dateDisplay" class="text-center font-black text-[#8C2721] text-lg tracking-wider">正在加载农历...</div>
+                <!-- 動態內容加載 -->
+                <div id="dateDisplay" class="text-center font-black text-[#8C2721] text-lg tracking-wider">正在加載農曆...</div>
             </div>
         </div>
 
-        <!-- 九宫布局 -->
+        <!-- 九宮佈局 -->
         <div class="grid grid-cols-3 border-2 border-slate-800 bg-white overflow-hidden shadow-inner" id="nineGrid">
             <!-- 由 JS 渲染 -->
         </div>
 
-        <!-- 按钮区 -->
+        <!-- 按鈕區 -->
         <div class="flex flex-col gap-3 mt-6">
             <button onclick="calculate()" class="w-full bg-[#8C2721] text-white py-4 rounded-sm font-black tracking-[0.8em] text-xl shadow-lg active:translate-y-0.5 transition-all hover:brightness-110">
-                开启玄机
+                開啟玄機
             </button>
             <button id="aiBtn" onclick="generateInterpretation()" class="hidden w-full border-2 border-[#8C2721] text-[#8C2721] py-3 rounded-sm font-bold flex items-center justify-center gap-2 hover:bg-[#8C2721] hover:text-white transition-all">
-                <span id="aiBtnText">📜 针对事件深度解读</span>
+                <span id="aiBtnText">📜 針對事件深度解讀</span>
             </button>
         </div>
 
-        <!-- 解读展示 -->
+        <!-- 解讀展示 -->
         <div id="analysisArea" class="hidden mt-6 p-5 bg-[#F9F7F0] border-l-[6px] border-[#8C2721] shadow-inner text-sm">
             <div class="flex items-center justify-between mb-3 border-b border-stone-200 pb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-1.5 h-5 bg-[#8C2721]"></span>
-                    <h3 class="font-black text-[#8C2721] text-lg">大师详批</h3>
+                    <h3 class="font-black text-[#8C2721] text-lg">大師詳批</h3>
                 </div>
                 <span id="eventTag" class="text-[10px] font-bold bg-[#8C2721] text-white px-2 py-0.5 rounded-full"></span>
             </div>
@@ -99,31 +99,31 @@
     <div class="mt-8 text-[10px] text-stone-400 font-bold tracking-[0.3em] uppercase">Small Liu Ren • Professional Divination</div>
 
     <script>
-        // 基础配置
+        // 基礎配置
         const apiKey = "";
         let currentMode = 'date';
         let calculationResult = null;
 
         const diZhiBase = [
-            { name: "子", wuxing: "水" }, { name: "丑", wuxing: "土" },
-            { name: "寅", wuxing: "木" }, { name: "卯", wuxing: "木" },
-            { name: "辰", wuxing: "土" }, { name: "巳", wuxing: "火" },
-            { name: "午", wuxing: "火" }, { name: "未", wuxing: "土" },
-            { name: "申", wuxing: "金" }, { name: "酉", wuxing: "金" },
-            { name: "戌", wuxing: "土" }, { name: "亥", wuxing: "水" }
+            { name: "子", range: "23-01", wuxing: "水" }, { name: "丑", range: "01-03", wuxing: "土" },
+            { name: "寅", range: "03-05", wuxing: "木" }, { name: "卯", range: "05-07", wuxing: "木" },
+            { name: "辰", range: "07-09", wuxing: "土" }, { name: "巳", range: "09-11", wuxing: "火" },
+            { name: "午", range: "11-13", wuxing: "火" }, { name: "未", range: "13-15", wuxing: "土" },
+            { name: "申", range: "15-17", wuxing: "金" }, { name: "酉", range: "17-19", wuxing: "金" },
+            { name: "戌", range: "19-21", wuxing: "土" }, { name: "亥", range: "21-23", wuxing: "水" }
         ];
 
-        const gongNames = ["大安", "留连", "速喜", "赤口", "小吉", "空亡"];
+        const gongNames = ["大安", "留連", "速喜", "赤口", "小吉", "空亡"];
         const gridLayout = [
             { name: '', index: -1 }, { name: '', index: -1 }, { name: '', index: -1 },
-            { name: '留连', index: 1 }, { name: '速喜', index: 2 }, { name: '赤口', index: 3 },
+            { name: '留連', index: 1 }, { name: '速喜', index: 2 }, { name: '赤口', index: 3 },
             { name: '大安', index: 0 }, { name: '空亡', index: 5 }, { name: '小吉', index: 4 }
         ];
 
         const fiveStars = ["木星", "火星", "土星", "金星", "水星", "天空"];
-        const sixGods = ["青龙", "朱雀", "勾陈", "腾蛇", "白虎", "玄武"];
+        const sixGods = ["青龍", "朱雀", "勾陳", "騰蛇", "白虎", "玄武"];
 
-        // 初始化九宫格
+        // 初始化九宮格
         function initGrid() {
             const grid = document.getElementById('nineGrid');
             grid.innerHTML = '';
@@ -140,7 +140,7 @@
                             <span class="star text-[10px] font-black text-blue-700 tracking-tighter"></span>
                         </div>
                         <div class="nodes-container flex flex-col gap-1.5 w-full items-center mt-2"></div>
-                        <div class="text-2xl font-black mt-auto pb-1.5 text-stone-300">${item.name}</div>
+                        <div class="text-2xl font-black mt-auto pb-1.5 text-stone-300 text-center w-full">${item.name}</div>
                         <div class="dz-text absolute bottom-0.5 right-1 text-[8px] font-bold text-stone-300"></div>
                     `;
                 }
@@ -148,7 +148,6 @@
             });
         }
 
-        // 农历计算 (模拟实现)
         function getLunarInfo() {
             const date = new Date();
             const formatter = new Intl.DateTimeFormat('zh-u-ca-chinese', { month: 'numeric', day: 'numeric' });
@@ -156,7 +155,7 @@
             const m = parseInt(parts.find(p => p.type === 'month').value);
             const d = parseInt(parts.find(p => p.type === 'day').value);
             const hIdx = Math.floor(((date.getHours() + 1) % 24) / 2);
-            return { month: m, day: d, hIdx: hIdx, text: `农历${m}月${d}日 ${diZhiBase[hIdx].name}时` };
+            return { month: m, day: d, hIdx: hIdx, text: `農曆${m}月${d}日 ${diZhiBase[hIdx].name}時(${diZhiBase[hIdx].range})` };
         }
 
         function setMode(mode) {
@@ -177,16 +176,18 @@
                 inputArea.innerHTML = `<div id="dateDisplay" class="text-center font-black text-[#8C2721] text-lg tracking-wider">${getLunarInfo().text}</div>`;
             } else if (mode === 'number') {
                 inputArea.innerHTML = `
-                    <div class="flex gap-4 justify-center">
+                    <div class="flex gap-2 justify-center items-center">
                         <input id="in_m" type="number" class="w-12 text-center border-b-2 border-[#8C2721] outline-none text-xl font-bold bg-transparent" placeholder="月">
+                        <span class="font-bold">月</span>
                         <input id="in_d" type="number" class="w-12 text-center border-b-2 border-[#8C2721] outline-none text-xl font-bold bg-transparent" placeholder="日">
-                        <select id="in_h" class="border-b-2 border-[#8C2721] outline-none font-bold text-[#8C2721] bg-transparent">
-                            ${diZhiBase.map((dz, i) => `<option value="${i}">${dz.name}时</option>`).join('')}
+                        <span class="font-bold">日</span>
+                        <select id="in_h" class="border-b-2 border-[#8C2721] outline-none font-bold text-[#8C2721] bg-transparent text-sm">
+                            ${diZhiBase.map((dz, i) => `<option value="${i}">${dz.name}時 (${dz.range})</option>`).join('')}
                         </select>
                     </div>
                 `;
             } else {
-                inputArea.innerHTML = `<input id="in_txt" class="w-full text-center border-b-2 border-[#8C2721] outline-none text-lg font-bold bg-transparent" placeholder="输入灵动感应词">`;
+                inputArea.innerHTML = `<input id="in_txt" class="w-full text-center border-b-2 border-[#8C2721] outline-none text-lg font-bold bg-transparent" placeholder="輸入靈動感應詞">`;
             }
         }
 
@@ -194,11 +195,11 @@
             if (selfName === targetName) return "自身";
             if (selfWx !== '土' && targetWx === '土' && isFirstEarth) return "兄弟";
             const relations = {
-                "木": { "木": "兄弟", "火": "子孙", "土": "妻财", "金": "官鬼", "水": "父母" },
-                "火": { "火": "兄弟", "土": "子孙", "金": "妻财", "水": "官鬼", "木": "父母" },
-                "土": { "土": "兄弟", "金": "子孙", "水": "妻财", "木": "官鬼", "火": "父母" },
-                "金": { "金": "兄弟", "水": "子孙", "木": "妻财", "火": "官鬼", "土": "父母" },
-                "水": { "水": "兄弟", "木": "子孙", "火": "妻财", "土": "官鬼", "金": "父母" }
+                "木": { "木": "兄弟", "火": "子孫", "土": "妻財", "金": "官鬼", "水": "父母" },
+                "火": { "火": "兄弟", "土": "子孫", "金": "妻財", "水": "官鬼", "木": "父母" },
+                "土": { "土": "兄弟", "金": "子孫", "水": "妻財", "木": "官鬼", "火": "父母" },
+                "金": { "金": "兄弟", "水": "子孫", "木": "妻財", "火": "官鬼", "土": "父母" },
+                "水": { "水": "兄弟", "木": "子孫", "火": "妻財", "土": "官鬼", "金": "父母" }
             };
             return relations[selfWx]?.[targetWx] || "-";
         }
@@ -215,13 +216,13 @@
                     (parseInt(document.getElementById('in_h').value) || 0) + 1
                 ];
             } else {
-                const txt = document.getElementById('in_txt').value || "灵动";
+                const txt = document.getElementById('in_txt').value || "靈動";
                 const chars = txt.split('').filter(c => /\S/.test(c));
                 nums = chars.slice(0,3).map(c => (c.charCodeAt(0) % 15) + 1);
                 while(nums.length < 3) nums.push(1);
             }
 
-            const labels = ["月", "日", "时"];
+            const labels = ["月", "日", "時"];
             let pathInfo = [];
             let currentPos = 0;
             nums.forEach((n, i) => {
@@ -231,13 +232,15 @@
 
             const shiPos = pathInfo[2].pos;
             const shiDzInfo = diZhiBase[(nums[2] - 1) % 12];
+            
+            // 地支分組邏輯
             const activeGroup = [0,2,4,6,8,10].includes((nums[2]-1)) ? 
                 [{name:"子",wuxing:"水"},{name:"寅",wuxing:"木"},{name:"辰",wuxing:"土"},{name:"午",wuxing:"火"},{name:"申",wuxing:"金"},{name:"戌",wuxing:"土"}] :
                 [{name:"丑",wuxing:"土"},{name:"卯",wuxing:"木"},{name:"巳",wuxing:"火"},{name:"未",wuxing:"土"},{name:"酉",wuxing:"金"},{name:"亥",wuxing:"水"}];
             
             const startIdxInGroup = activeGroup.findIndex(d => d.name === shiDzInfo.name);
 
-            // 渲染网格
+            // 渲染網格
             initGrid();
             let earthCount = 0;
             for(let offset=0; offset<6; offset++) {
@@ -250,12 +253,11 @@
 
                 const lq = getLiuQin(shiDzInfo.wuxing, dz.wuxing, shiDzInfo.name, dz.name, isFirstEarth);
                 
-                // 设置星神
+                // 設置星神
                 gongEl.querySelector('.six-god').innerText = sixGods[(gIdx + nums[2]) % 6];
                 gongEl.querySelector('.star').innerText = fiveStars[(gIdx - shiPos + 6) % 6];
                 gongEl.querySelector('.dz-text').innerText = dz.name + dz.wuxing;
 
-                // 检查是否有课点落位
                 const nodes = pathInfo.filter(p => p.pos === gIdx);
                 if(nodes.length > 0) {
                     gongEl.classList.add('active-gong');
@@ -278,7 +280,7 @@
             }
 
             calculationResult = {
-                event: document.getElementById('eventInput').value || "通用占测",
+                event: document.getElementById('eventInput').value || "通用占測",
                 summary: pathInfo.map(p => gongNames[p.pos]).join(' -> '),
                 selfDz: shiDzInfo.name + shiDzInfo.wuxing
             };
@@ -292,13 +294,13 @@
             const btn = document.getElementById('aiBtn');
             const btnText = document.getElementById('aiBtnText');
             btn.disabled = true;
-            btnText.innerHTML = `<div class="w-4 h-4 border-2 border-t-transparent border-current rounded-full animate-spin"></div> 参悟天机中...`;
+            btnText.innerHTML = `<div class="w-4 h-4 border-2 border-t-transparent border-current rounded-full animate-spin"></div> 參悟天機中...`;
 
             const prompt = `
-                起课事件：${calculationResult.event}
-                排盘轨迹：${calculationResult.summary}
-                时课地支（自身）：${calculationResult.selfDz}
-                请结合《小六壬马前课》断语，特别是针对“${calculationResult.event}”这一事件，提供深度解析。语言古风。
+                起課事件：${calculationResult.event}
+                排盤軌跡：${calculationResult.summary}
+                時課地支（自身）：${calculationResult.selfDz}
+                請結合《小六壬馬前課》斷語，特別針對“${calculationResult.event}”這一事件，提供深度解析。請包含今日運勢、求謀方向。語言古雅、專業。
             `;
 
             try {
@@ -307,25 +309,24 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: "你是一位精通小六壬排盘的命理大师。" }] }
+                        systemInstruction: { parts: [{ text: "你是一位精通《小六壬馬前課》、五行、六親、星神的命理大師。請根據起課事件提供極具針對性的解讀。" }] }
                     })
                 });
                 const data = await response.json();
-                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "卦象不明，请稍后。";
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "卦象不明，請稍後重試。";
                 
                 document.getElementById('analysisArea').classList.remove('hidden');
                 document.getElementById('eventTag').innerText = calculationResult.event;
                 document.getElementById('analysisContent').innerText = text;
                 document.getElementById('analysisArea').scrollIntoView({ behavior: 'smooth' });
             } catch (err) {
-                alert("天机受阻，请检查网络连接或 API Key。");
+                alert("感應受阻，請檢查網絡連接。");
             } finally {
                 btn.disabled = false;
-                btnText.innerText = "📜 针对事件深度解读";
+                btnText.innerText = "📜 針對事件深度解讀";
             }
         }
 
-        // 初始运行
         window.onload = () => {
             initGrid();
             setMode('date');
