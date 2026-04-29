@@ -73,6 +73,7 @@
     </div>
 
     <script>
+        // --- API KEY 存储逻辑 ---
         let apiKey = localStorage.getItem('GEMINI_API_KEY') || "";
 
         function checkKey() {
@@ -286,10 +287,7 @@
             `;
 
             try {
-                // 修改模型为更稳定的 1.5-flash
-                const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-                
-                const response = await fetch(apiUrl, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -299,12 +297,6 @@
                 });
                 
                 const data = await response.json();
-                
-                // 针对 503 错误或模型问题的特殊提示
-                if(response.status === 503) {
-                    throw new Error("Google服務器此時忙碌，請10秒後重試。");
-                }
-                
                 if(data.error) throw new Error(data.error.message);
 
                 const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
@@ -328,7 +320,7 @@
                 document.getElementById('analysisArea').scrollIntoView({ behavior: 'smooth' });
             } catch (err) {
                 console.error(err);
-                alert("感應提示: " + err.message);
+                alert("感應失敗，請檢測 API Key 是否正確或網路狀態。");
             } finally {
                 btnText.innerText = "📜 獲取大白話詳解";
             }
@@ -337,6 +329,7 @@
         window.onload = () => {
             initGrid();
             setMode('date');
+            // 延迟一秒检测Key，避免影响页面首屏加载
             setTimeout(checkKey, 1000);
             setInterval(() => {
                 if(currentMode === 'date') {
