@@ -7,14 +7,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
-        body { font-family: 'Noto Serif SC', serif; background-color: #F3F1E9; -webkit-tap-highlight-color: transparent; }
-        .active-gong { background-color: rgba(140, 39, 33, 0.05); box-shadow: inset 0 0 10px rgba(140, 39, 33, 0.05); }
-        .tab-active { background-color: #8C2721; color: white; }
-        .num-card { background: #FFFFFF; border: 2px solid #8C2721; position: relative; }
-        .plain-text-box b { color: #8C2721; font-weight: 900; display: inline-block; margin-top: 10px; margin-right: 2px; }
-        .clean-output { line-height: 1.8; }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238C2721' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 1em; }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background-color: #F3F1E9;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .active-gong {
+            background-color: rgba(140, 39, 33, 0.05);
+            box-shadow: inset 0 0 10px rgba(140, 39, 33, 0.05);
+        }
+
+        .tab-active {
+            background-color: #8C2721;
+            color: white;
+        }
+
+        .num-card {
+            background: #FFFFFF;
+            border: 2px solid #8C2721;
+            position: relative;
+        }
+
+        .plain-text-box b {
+            color: #8C2721;
+            font-weight: 900;
+            display: inline-block;
+            margin-top: 10px;
+            margin-right: 2px;
+        }
+
+        .clean-output {
+            line-height: 1.8;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238C2721' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 1em;
+        }
     </style>
 </head>
 <body class="p-3 sm:p-6 text-slate-900 flex flex-col items-center min-h-screen">
@@ -28,7 +68,9 @@
 
         <div class="mb-5">
             <label class="text-[10px] font-bold text-stone-400 ml-1 mb-1 block tracking-widest">諮詢事項</label>
-            <input id="eventInput" type="text" class="w-full px-4 py-3 border-2 border-slate-800 outline-none font-bold text-[#8C2721] bg-white shadow-inner rounded-none" placeholder="請輸入占測事項...">
+            <input id="eventInput" type="text" 
+                class="w-full px-4 py-3 border-2 border-slate-800 outline-none font-bold text-[#8C2721] bg-white shadow-inner rounded-none" 
+                placeholder="請輸入占測事項...">
         </div>
 
         <div class="mb-6">
@@ -37,17 +79,20 @@
                 <button onclick="setMode('number')" data-mode="number" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400 border-l-2 border-slate-800">數理起課</button>
                 <button onclick="setMode('text')" data-mode="text" class="mode-btn flex-1 py-3 text-xs font-black bg-stone-50 text-slate-400 border-l-2 border-slate-800">文字感應</button>
             </div>
-            <div id="inputArea" class="p-6 bg-white border-2 border-slate-800 shadow-inner min-h-[120px] flex flex-col justify-center"></div>
+            
+            <div id="inputArea" class="p-6 bg-white border-2 border-slate-800 shadow-inner min-h-[120px] flex flex-col justify-center">
+                </div>
         </div>
 
         <div class="grid grid-cols-3 border-2 border-slate-800 bg-white mb-6 shadow-inner" id="nineGrid"></div>
 
         <div class="flex flex-col gap-3">
-            <button onclick="calculate()" class="w-full bg-[#8C2721] text-white py-4 rounded-none font-black tracking-[0.8em] text-xl shadow-lg active:translate-y-0.5 transition-all">啟卦</button>
+            <button onclick="calculate()" class="w-full bg-[#8C2721] text-white py-4 rounded-none font-black tracking-[0.8em] text-xl shadow-lg active:translate-y-0.5 transition-all">
+                啟卦
+            </button>
             <button id="aiBtn" onclick="generateInterpretation()" class="hidden w-full border-2 border-[#8C2721] text-[#8C2721] py-3 rounded-none font-black flex items-center justify-center gap-2 hover:bg-[#8C2721] hover:text-white transition-all">
                 <span id="aiBtnText">📜 獲取大白話詳解</span>
             </button>
-            <button onclick="resetKey()" class="text-[10px] text-stone-400 underline mt-2">更換 API Key</button>
         </div>
 
         <div id="analysisArea" class="hidden mt-6 space-y-5 pb-8">
@@ -73,27 +118,7 @@
     </div>
 
     <script>
-        // --- API KEY 存储逻辑 ---
-        let apiKey = localStorage.getItem('GEMINI_API_KEY') || "";
-
-        function checkKey() {
-            if (!apiKey) {
-                const input = prompt("請輸入您的 Gemini API Key：\n(此 Key 將保存在瀏覽器本地，不會被公開)");
-                if (input && input.trim()) {
-                    apiKey = input.trim();
-                    localStorage.setItem('GEMINI_API_KEY', apiKey);
-                    return true;
-                }
-                return false;
-            }
-            return true;
-        }
-
-        function resetKey() {
-            localStorage.removeItem('GEMINI_API_KEY');
-            apiKey = "";
-            checkKey();
-        }
+        const apiKey = "AIzaSyB6Z35CUnsbmngZ9ku1vF0kSMtN07J7J4s"; 
 
         let currentMode = 'date';
         let calculationResult = null;
@@ -153,6 +178,7 @@
                 btn.className = `mode-btn flex-1 py-3 text-xs font-black ${isActive ? 'tab-active' : 'bg-stone-50 text-slate-400 border-l-2 border-slate-800'}`;
             });
             const inputArea = document.getElementById('inputArea');
+            
             if (mode === 'date') {
                 inputArea.innerHTML = `<div id="dateDisplay" class="text-center font-black text-[#8C2721] text-lg tracking-wider">${getLunarInfo().text}</div>`;
             } else if (mode === 'number') {
@@ -196,13 +222,18 @@
         function calculate() {
             let nums = [];
             let hIdx = 0;
+
             if (currentMode === 'date') {
                 const lunar = getLunarInfo();
                 hIdx = lunar.hIdx;
                 nums = [lunar.month, lunar.day, hIdx + 1];
             } else if (currentMode === 'number') {
                 hIdx = parseInt(document.getElementById('in_h').value) || 0;
-                nums = [parseInt(document.getElementById('in_m').value) || 1, parseInt(document.getElementById('in_d').value) || 1, hIdx + 1];
+                nums = [
+                    parseInt(document.getElementById('in_m').value) || 1,
+                    parseInt(document.getElementById('in_d').value) || 1,
+                    hIdx + 1
+                ];
             } else {
                 const txt = (document.getElementById('in_txt').value || "感應");
                 nums = txt.split('').slice(0,3).map(c => (c.charCodeAt(0) % 12) + 1);
@@ -218,8 +249,11 @@
                 pathInfo.push({ pos: currentPos, label: labels[i] });
             });
 
-            const shiPos = pathInfo[2].pos;
+            // 核心逻辑修改：五星起点改为日宫起点
+            const riPos = pathInfo[1].pos; // 日所在的宫位
+            const shiPos = pathInfo[2].pos; // 时所在的宫位（落宫）
             const shiDzInfo = diZhiBase[hIdx];
+
             const activeGroup = [0,2,4,6,8,10].includes(hIdx) ? 
                 [{name:"子",wuxing:"水"},{name:"寅",wuxing:"木"},{name:"辰",wuxing:"土"},{name:"午",wuxing:"火"},{name:"申",wuxing:"金"},{name:"戌",wuxing:"土"}] :
                 [{name:"丑",wuxing:"土"},{name:"卯",wuxing:"木"},{name:"巳",wuxing:"火"},{name:"未",wuxing:"土"},{name:"酉",wuxing:"金"},{name:"亥",wuxing:"水"}];
@@ -232,21 +266,38 @@
                 const gIdx = (shiPos + offset) % 6;
                 const dz = activeGroup[(startIdxInGroup + offset) % 6];
                 const gongEl = document.getElementById(`gong-${gIdx}`);
+                
                 let isFirstEarth = false;
-                if(dz.wuxing === '土') { earthCount++; if(earthCount === 1) isFirstEarth = true; }
+                if(dz.wuxing === '土') { 
+                    earthCount++; 
+                    if(earthCount === 1) isFirstEarth = true; 
+                }
+                
                 const lq = getLiuQin(shiDzInfo.wuxing, dz.wuxing, shiDzInfo.name, dz.name, isFirstEarth);
+                
+                // 六神依然随落宫（时）起算
                 gongEl.querySelector('.six-god').innerText = sixGods[(gIdx + nums[2]) % 6];
-                gongEl.querySelector('.star').innerText = fiveStars[(gIdx - shiPos + 6) % 6];
+                
+                // 修改五星显示逻辑：从 riPos 开始顺排
+                // 计算当前宫位 gIdx 距离日宫 riPos 的偏移量
+                const starOffset = (gIdx - riPos + 6) % 6;
+                gongEl.querySelector('.star').innerText = fiveStars[starOffset];
+                
                 gongEl.querySelector('.dz-text').innerText = dz.name + dz.wuxing;
 
                 const nodes = pathInfo.filter(p => p.pos === gIdx);
                 const container = gongEl.querySelector('.nodes-container');
+                
                 if(nodes.length > 0) {
                     gongEl.classList.add('active-gong');
                     const nameEl = gongEl.querySelector('.text-xl');
                     nameEl.classList.replace('text-stone-200', 'text-[#8C2721]');
                     nodes.forEach(node => {
-                        container.innerHTML += `<div class="bg-white px-1.5 py-0.5 border border-[#8C2721]/30 shadow-sm rounded-sm"><span class="text-[9px] font-black text-[#8C2721]">${node.label}·${lq}</span></div>`;
+                        container.innerHTML += `
+                            <div class="bg-white px-1.5 py-0.5 border border-[#8C2721]/30 shadow-sm rounded-sm">
+                                <span class="text-[9px] font-black text-[#8C2721]">${node.label}·${lq}</span>
+                            </div>
+                        `;
                     });
                 } else {
                     container.innerHTML = `<span class="text-[9px] font-bold text-stone-300 italic opacity-60">${lq}</span>`;
@@ -265,8 +316,11 @@
         }
 
         async function generateInterpretation() {
-            if(!checkKey()) return;
             if(!calculationResult) return;
+            if(!apiKey || apiKey.length < 10) {
+                alert("請先在代碼中填入有效的 API Key");
+                return;
+            }
 
             const btnText = document.getElementById('aiBtnText');
             btnText.innerHTML = `<span class="animate-pulse">正在參悟天機...</span>`;
@@ -278,8 +332,8 @@
                 落宮：${calculationResult.finalGong}
                 
                 請給出深度解析。要求如下：
-                1. 嚴禁輸出任何 Markdown 符號。
-                2. 禁止輸出數字編號。
+                1. 嚴禁輸出任何 Markdown 符號（禁止 ####, **, ##, *, [], - 等）。
+                2. 禁止輸出數字編號（如 1. 2. 3.）。
                 3. [大白話解析] 部分：
                    - 包含 總結、預判、建議 三個版塊。
                    - 標題格式必須為「總結：」、「預判：」、「建議：」。
@@ -292,15 +346,21 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: "你是小六壬大師。禁止使用Markdown符號，禁止數字編號，直接換行輸出文字內容。" }] }
+                        systemInstruction: { parts: [{ text: "你是小六壬大師。禁止使用Markdown符號如星號、井號、括號。不要輸出數字編號。直接換行輸出文字內容。" }] }
                     })
                 });
                 
                 const data = await response.json();
-                if(data.error) throw new Error(data.error.message);
+                
+                if(data.error) {
+                    throw new Error(data.error.message);
+                }
 
                 const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                
                 let cleanText = rawText.replace(/[#*_\-`\[\]]/g, '').trim();
+                cleanText = cleanText.replace(/^\d+\.\s*/gm, ''); 
+
                 const sections = cleanText.split('專業大師詳批');
                 const plainPart = sections[0].replace('大白話解析', '').trim();
                 const profPart = sections[1] || "大師正在組織預感...";
@@ -317,10 +377,11 @@
 
                 document.getElementById('plainSpeechContent').innerHTML = formattedPlain.replace(/\n/g, '<br>');
                 document.getElementById('analysisContent').innerText = profPart.trim();
+                
                 document.getElementById('analysisArea').scrollIntoView({ behavior: 'smooth' });
             } catch (err) {
                 console.error(err);
-                alert("感應失敗，請檢測 API Key 是否正確或網路狀態。");
+                alert("感應失敗：" + err.message);
             } finally {
                 btnText.innerText = "📜 獲取大白話詳解";
             }
@@ -329,8 +390,6 @@
         window.onload = () => {
             initGrid();
             setMode('date');
-            // 延迟一秒检测Key，避免影响页面首屏加载
-            setTimeout(checkKey, 1000);
             setInterval(() => {
                 if(currentMode === 'date') {
                     const el = document.getElementById('dateDisplay');
